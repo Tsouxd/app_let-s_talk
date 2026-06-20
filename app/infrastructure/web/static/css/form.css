@@ -1,0 +1,193 @@
+/* =========================================================
+   PAGE FORMULAIRE — dépôt d'intention / témoignage
+   ========================================================= */
+
+.form-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4) var(--space-2);
+}
+
+.form-shell {
+  width: 100%;
+  max-width: 30rem;
+}
+
+.form-card {
+  position: relative;
+  background: rgba(11, 18, 32, 0.55);
+  border: 1px solid rgba(247, 243, 234, 0.1);
+  border-radius: 4px;
+  padding: var(--space-4) var(--space-4);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 30px 80px -30px rgba(0,0,0,0.6);
+  overflow: hidden;
+}
+
+.form-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent, var(--gold)), transparent);
+}
+
+.form-card--priere { --accent: var(--blue-priere); }
+.form-card--temoin { --accent: var(--amber-temoin); }
+
+.form-header {
+  text-align: center;
+  margin-bottom: var(--space-4);
+}
+
+.form-icon-wrap {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto var(--space-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.form-icon-wrap::before {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent, var(--gold)) 35%, transparent) 0%, transparent 72%);
+}
+
+.form-icon {
+  position: relative;
+  display: block;
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+  filter: brightness(0) saturate(100%) invert(1) drop-shadow(0 0 8px color-mix(in srgb, var(--accent, var(--gold)) 45%, transparent));
+  opacity: 0.96;
+}
+
+.form-title {
+  font-size: clamp(1.7rem, 3vw, 2.1rem);
+  font-style: italic;
+  color: var(--paper);
+}
+
+.form-subtitle {
+  margin-top: var(--space-1);
+  font-size: 0.92rem;
+  color: var(--slate);
+}
+
+.form-field {
+  margin-bottom: var(--space-3);
+}
+
+.form-label {
+  display: block;
+  font-family: var(--font-caps);
+  font-size: 0.76rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--slate);
+  margin-bottom: 0.55rem;
+}
+
+.form-control {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--paper);
+  background: rgba(247, 243, 234, 0.03);
+  border: 1px solid rgba(247, 243, 234, 0.14);
+  border-radius: 2px;
+  padding: 0.85rem 1rem;
+  transition: border-color 0.35s var(--ease-soft), background 0.35s var(--ease-soft);
+}
+.form-control::placeholder { color: var(--slate-dim); }
+.form-control:focus {
+  outline: none;
+  border-color: var(--accent, var(--gold));
+  background: rgba(247, 243, 234, 0.05);
+}
+
+textarea.form-control {
+  resize: vertical;
+  min-height: 9rem;
+  line-height: 1.6;
+}
+
+.char-counter {
+  margin-top: 0.4rem;
+  text-align: right;
+  font-size: 0.74rem;
+  color: var(--slate-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Checkbox custom */
+.check-field {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  cursor: pointer;
+  user-select: none;
+}
+.check-field input {
+  position: absolute;
+  opacity: 0;
+  width: 0; height: 0;
+}
+.check-box {
+  flex: none;
+  width: 19px;
+  height: 19px;
+  border: 1px solid rgba(247, 243, 234, 0.3);
+  border-radius: 2px;
+  position: relative;
+  transition: border-color 0.3s var(--ease-soft), background 0.3s var(--ease-soft);
+}
+.check-box::after {
+  content: "";
+  position: absolute;
+  left: 5px; top: 1px;
+  width: 5px; height: 9px;
+  border: solid var(--ink-night);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg) scale(0);
+  transition: transform 0.25s var(--ease-out);
+}
+.check-field input:checked ~ .check-box {
+  background: var(--accent, var(--gold));
+  border-color: var(--accent, var(--gold));
+}
+.check-field input:checked ~ .check-box::after { transform: rotate(45deg) scale(1); }
+.check-field input:focus-visible ~ .check-box {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+.check-label {
+  font-size: 0.88rem;
+  color: var(--slate);
+}
+
+.form-submit { margin-top: var(--space-4); }
+
+.form-back {
+  margin-bottom: var(--space-3);
+}
+
+/* Entrée en scène de la carte */
+.form-card {
+  animation: card-rise 0.7s var(--ease-out) both;
+}
+@keyframes card-rise {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .form-card { animation: none; }
+}

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ 'Déposer une intention' if post_type == 'priere' else 'Partager un témoignage' }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="{{ url_for('web.static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('web.static', filename='css/form.css') }}">
+</head>
+<body>
+
+    <div class="app-backdrop" aria-hidden="true"></div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-bar {{ 'is-danger' if category == 'danger' else '' }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <main class="form-page">
+        <div class="form-shell">
+
+            <a href="/" class="back-link form-back">
+                <svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 1L1 5L5 9" stroke="currentColor" stroke-width="1.3"/>
+                    <path d="M1 5H13" stroke="currentColor" stroke-width="1.3"/>
+                </svg>
+                Retour à l'accueil
+            </a>
+
+            <div class="form-card {{ 'form-card--priere' if post_type == 'priere' else 'form-card--temoin' }}">
+                <header class="form-header">
+                    {% if post_type == 'priere' %}
+                        <span class="form-icon-wrap">
+                            <img class="form-icon" src="{{ url_for('web.static', filename='img/priere_logo_removebg.png') }}" alt="" aria-hidden="true">
+                        </span>
+                        <p class="eyebrow" style="color: var(--blue-priere);">Recueillement</p>
+                        <h1 class="form-title">Déposer une intention</h1>
+                        <p class="form-subtitle">Confiez votre prière en toute confiance.</p>
+                    {% else %}
+                        <span class="form-icon-wrap">
+                            <img class="form-icon" src="{{ url_for('web.static', filename='img/temoignage_logo_removebg.png') }}" alt="" aria-hidden="true">
+                        </span>
+                        <p class="eyebrow" style="color: var(--amber-temoin);">Gratitude</p>
+                        <h1 class="form-title">Partager un témoignage</h1>
+                        <p class="form-subtitle">Racontez les bienfaits reçus.</p>
+                    {% endif %}
+                </header>
+
+                <form action="/publier/{{ post_type }}" method="POST" novalidate>
+
+                    <div class="form-field">
+                        <label class="form-label" for="content">Votre message</label>
+                        <textarea
+                            class="form-control"
+                            id="content"
+                            name="content"
+                            placeholder="Rédigez votre texte ici..."
+                            required
+                            minlength="5"
+                            rows="6"
+                            data-counter-target
+                        ></textarea>
+                        <div class="char-counter" data-counter>0 caractère</div>
+                    </div>
+
+                    <div class="form-field">
+                        <label class="form-label" for="author">Votre nom / pseudo (facultatif)</label>
+                        <input
+                            class="form-control"
+                            type="text"
+                            id="author"
+                            name="author"
+                            placeholder="Laissez vide pour publier anonymement"
+                            data-author-input
+                        >
+                    </div>
+
+                    <div class="form-field">
+                        <label class="check-field">
+                            <input type="checkbox" name="is_anonymous" checked data-anonymous-toggle>
+                            <span class="check-box" aria-hidden="true"></span>
+                            <span class="check-label">Publier de manière anonyme</span>
+                        </label>
+                    </div>
+
+                    <div class="form-submit">
+                        {% if post_type == 'priere' %}
+                            <button class="btn btn-priere btn-block" type="submit">
+                                <span>Envoyer ma prière</span>
+                            </button>
+                        {% else %}
+                            <button class="btn btn-temoin btn-block" type="submit">
+                                <span>Publier mon témoignage</span>
+                            </button>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script src="{{ url_for('web.static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('web.static', filename='js/form.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espace Prières &amp; Témoignages</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="{{ url_for('web.static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('web.static', filename='css/index.css') }}">
+</head>
+<body>
+
+    <div class="app-backdrop" aria-hidden="true"></div>
+
+    <!-- Barre de notifications flash de Flask -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-bar {{ 'is-danger' if category == 'danger' else '' }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <main class="diptych">
+
+        <div class="seal-divider" aria-hidden="true">
+            <span class="seal-ring"></span>
+            <span class="seal-ring seal-ring--inner"></span>
+            <span class="seal-core"></span>
+        </div>
+
+        <!-- BLOC DE GAUCHE : PRIÈRES -->
+        <section class="diptych-side side-priere" aria-labelledby="titre-prieres">
+            <header class="side-header reveal">
+                <span class="side-icon-wrap">
+                    <img class="side-icon" src="{{ url_for('web.static', filename='img/priere_logo_removebg.png') }}" alt="" aria-hidden="true">
+                </span>
+                <p class="eyebrow" style="color: var(--blue-priere);">Recueillement</p>
+                <h1 id="titre-prieres" class="side-title">Prières</h1>
+                <p class="side-subtitle">Déposez une intention en confiance, ou tenez compagnie à celles et ceux qui prient.</p>
+                <div class="side-cta">
+                    <a href="/publier/priere" class="btn btn-priere">
+                        <span>Déposer une intention</span>
+                    </a>
+                </div>
+            </header>
+
+            <!-- <div class="entries-scroll">
+                <div class="entries" data-stagger>
+                    {% for p in prieres %}
+                        <article class="entry-card reveal">
+                            <span class="entry-mark"></span>
+                            <p class="entry-content">{{ p.content }}</p>
+                            <div class="entry-meta">
+                                <span>{{ p.author }}</span>
+                                <span>{{ p.created_at }}</span>
+                            </div>
+                        </article>
+                    {% else %}
+                        <div class="entry-empty">
+                            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="24" cy="24" r="15" stroke="currentColor" stroke-width="1"/>
+                                <path d="M24 17V24L29 28" stroke="currentColor" stroke-width="1"/>
+                            </svg>
+                            <p>Aucune intention déposée pour l'instant.<br>La vôtre pourrait être la première.</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div> -->
+        </section>
+
+        <!-- BLOC DE DROITE : TÉMOIGNAGES -->
+        <section class="diptych-side side-temoignage" aria-labelledby="titre-temoignages">
+            <header class="side-header reveal">
+                <span class="side-icon-wrap">
+                    <img class="side-icon" src="{{ url_for('web.static', filename='img/temoignage_logo_removebg.png') }}" alt="" aria-hidden="true">
+                </span>
+                <p class="eyebrow" style="color: var(--amber-temoin);">Gratitude</p>
+                <h1 id="titre-temoignages" class="side-title">Témoignages</h1>
+                <p class="side-subtitle">Racontez ce que vous avez reçu, et laissez votre récit affermir la foi d'un autre.</p>
+                <div class="side-cta">
+                    <a href="/publier/temoignage" class="btn btn-temoin">
+                        <span>Partager un témoignage</span>
+                    </a>
+                </div>
+            </header>
+
+            <!-- <div class="entries-scroll">
+                <div class="entries" data-stagger>
+                    {% for t in temoignages %}
+                        <article class="entry-card reveal">
+                            <span class="entry-mark"></span>
+                            <p class="entry-content">{{ t.content }}</p>
+                            <div class="entry-meta">
+                                <span>{{ t.author }}</span>
+                                <span>{{ t.created_at }}</span>
+                            </div>
+                        </article>
+                    {% else %}
+                        <div class="entry-empty">
+                            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="24" cy="24" r="15" stroke="currentColor" stroke-width="1"/>
+                                <path d="M24 17V24L29 28" stroke="currentColor" stroke-width="1"/>
+                            </svg>
+                            <p>Aucun témoignage partagé pour l'instant.<br>Le vôtre pourrait être le premier.</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div> -->
+        </section>
+
+    </main>
+
+    <script src="{{ url_for('web.static', filename='js/main.js') }}"></script>
+</body>
+</html>
