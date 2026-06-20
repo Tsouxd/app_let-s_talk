@@ -113,6 +113,21 @@
   background: rgba(247, 243, 234, 0.05);
 }
 
+.form-control.has-error {
+  border-color: rgba(196, 124, 90, 0.65);
+  background: rgba(196, 124, 90, 0.06);
+}
+.form-control.has-error:focus {
+  border-color: rgba(196, 124, 90, 0.85);
+}
+
+.field-hint {
+  margin: 0.5rem 0 0;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: #c47c5a;
+}
+
 textarea.form-control {
   resize: vertical;
   min-height: 9rem;

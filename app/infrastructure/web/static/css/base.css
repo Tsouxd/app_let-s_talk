@@ -192,6 +192,45 @@ button, .btn {
 .btn-block { width: 100%; }
 
 /* ---------------------------------------------------------
+   État de chargement (soumission de formulaire)
+   --------------------------------------------------------- */
+.btn.is-loading {
+  cursor: progress;
+  pointer-events: none;
+}
+.btn.is-loading::before {
+  transform: translateY(0);
+}
+.btn.is-loading span {
+  color: var(--ink-night);
+  padding-left: 1.6rem;
+  position: relative;
+}
+.btn.is-loading span::before {
+  content: "";
+  position: absolute;
+  left: -1.6rem;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  margin-top: -7px;
+  border-radius: 50%;
+  border: 2px solid rgba(11, 18, 32, 0.25);
+  border-top-color: var(--ink-night);
+  animation: btn-spin 0.7s linear infinite;
+}
+
+@keyframes btn-spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn.is-loading span::before {
+    animation-duration: 1.4s;
+  }
+}
+
+/* ---------------------------------------------------------
    Notifications flash
    --------------------------------------------------------- */
 .flash-bar {

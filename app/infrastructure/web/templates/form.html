@@ -52,7 +52,7 @@
                     {% endif %}
                 </header>
 
-                <form action="/publier/{{ post_type }}" method="POST" novalidate>
+                <form action="/publier/{{ post_type }}" method="POST" novalidate data-publish-form>
 
                     <div class="form-field">
                         <label class="form-label" for="content">Votre message</label>
@@ -76,14 +76,18 @@
                             type="text"
                             id="author"
                             name="author"
-                            placeholder="Laissez vide pour publier anonymement"
+                            placeholder="Votre nom ou pseudo"
+                            aria-describedby="author-hint"
                             data-author-input
                         >
+                        <p class="field-hint" id="author-hint" data-author-hint hidden>
+                            Indiquez votre nom ou cochez « anonyme ».
+                        </p>
                     </div>
 
                     <div class="form-field">
                         <label class="check-field">
-                            <input type="checkbox" name="is_anonymous" checked data-anonymous-toggle>
+                            <input type="checkbox" name="is_anonymous" data-anonymous-toggle>
                             <span class="check-box" aria-hidden="true"></span>
                             <span class="check-label">Publier de manière anonyme</span>
                         </label>
@@ -91,11 +95,11 @@
 
                     <div class="form-submit">
                         {% if post_type == 'priere' %}
-                            <button class="btn btn-priere btn-block" type="submit">
+                            <button class="btn btn-priere btn-block" type="submit" data-submit-btn data-loading-text="Envoi en cours…">
                                 <span>Envoyer ma prière</span>
                             </button>
                         {% else %}
-                            <button class="btn btn-temoin btn-block" type="submit">
+                            <button class="btn btn-temoin btn-block" type="submit" data-submit-btn data-loading-text="Publication en cours…">
                                 <span>Publier mon témoignage</span>
                             </button>
                         {% endif %}
